@@ -5,7 +5,7 @@ import 'package:movie_app/src/core/shared/themes/app_colors.dart';
 class AppTheme {
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: GoogleFonts.urbanist(
-      color: AppColors.darkGrey,
+      color: AppColors.black,
       fontWeight: FontWeight.w500,
       fontSize: 14,
     ),
@@ -23,6 +23,11 @@ class AppTheme {
       color: AppColors.black,
       fontSize: 16,
       fontWeight: FontWeight.w600,
+    ),
+    headline4: GoogleFonts.urbanist(
+      color: AppColors.darkGrey,
+      fontWeight: FontWeight.w600,
+      fontSize: 14,
     ),
     headline6: GoogleFonts.urbanist(
       color: AppColors.black,
@@ -52,6 +57,11 @@ class AppTheme {
       fontSize: 16,
       fontWeight: FontWeight.w600,
     ),
+    headline4: GoogleFonts.urbanist(
+      color: AppColors.white,
+      fontWeight: FontWeight.w600,
+      fontSize: 14,
+    ),
     headline6: GoogleFonts.urbanist(
       color: AppColors.white,
       fontSize: 20,
@@ -70,10 +80,14 @@ class AppTheme {
         fillColor: MaterialStateColor.resolveWith(
           (states) => AppColors.primary,
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
       ),
       appBarTheme: const AppBarTheme(
         foregroundColor: AppColors.black,
         backgroundColor: AppColors.white,
+        elevation: 0,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: AppColors.primary,
@@ -84,18 +98,88 @@ class AppTheme {
           foregroundColor: AppColors.white,
           textStyle: GoogleFonts.urbanist(
             color: AppColors.white,
-            fontSize: 16,
+            fontSize: 15.5,
             fontWeight: FontWeight.w600,
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
           padding: const EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 18,
+          ),
+          minimumSize: const Size.fromHeight(0),
+          elevation: 0,
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: AppColors.black,
+          side: BorderSide(
+            width: .6,
+            color: Colors.grey.shade200,
+          ),
+          textStyle: GoogleFonts.urbanist(
+            color: AppColors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          padding: const EdgeInsets.symmetric(
             vertical: 18,
             horizontal: 20,
           ),
           minimumSize: const Size.fromHeight(0),
-          elevation: 0,
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: AppColors.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+      ),
+      dialogTheme: DialogTheme(
+        backgroundColor: AppColors.white,
+        titleTextStyle: GoogleFonts.urbanist(
+          color: AppColors.primary,
+          fontSize: 24,
+          fontWeight: FontWeight.w700,
+        ),
+        contentTextStyle: GoogleFonts.urbanist(
+          color: AppColors.primary,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40),
+        ),
+      ),
+      dividerTheme: DividerThemeData(
+        color: Colors.grey.shade200,
+        space: .6,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 15,
+          horizontal: 18,
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          gapPadding: 12,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        fillColor: const Color(0xFFFAFAFA),
+        filled: true,
+        iconColor: const Color(0xFF9E9E9E),
+        hintStyle: GoogleFonts.urbanist(
+          color: const Color(0xFF9E9E9E),
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
         ),
       ),
       textTheme: lightTextTheme,
@@ -113,10 +197,14 @@ class AppTheme {
         fillColor: MaterialStateColor.resolveWith(
           (states) => AppColors.primary,
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         foregroundColor: AppColors.white,
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: AppColors.hintDark,
+        elevation: 0,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: AppColors.primary,
@@ -126,8 +214,8 @@ class AppTheme {
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.white,
           padding: const EdgeInsets.symmetric(
-            vertical: 18,
-            horizontal: 20,
+            vertical: 15,
+            horizontal: 18,
           ),
           minimumSize: const Size.fromHeight(0),
           elevation: 0,
@@ -136,9 +224,79 @@ class AppTheme {
           ),
           textStyle: GoogleFonts.urbanist(
             color: AppColors.white,
-            fontSize: 16,
+            fontSize: 15.5,
             fontWeight: FontWeight.w600,
           ),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          backgroundColor: AppColors.darkGrey.withOpacity(.45),
+          foregroundColor: AppColors.white,
+          side: const BorderSide(
+            width: .6,
+            color: Colors.grey,
+          ),
+          textStyle: GoogleFonts.urbanist(
+            color: AppColors.black,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          padding: const EdgeInsets.symmetric(
+            vertical: 18,
+            horizontal: 20,
+          ),
+          minimumSize: const Size.fromHeight(0),
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: AppColors.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+      ),
+      dialogTheme: DialogTheme(
+        backgroundColor: AppColors.dark,
+        titleTextStyle: GoogleFonts.urbanist(
+          color: AppColors.primary,
+          fontSize: 24,
+          fontWeight: FontWeight.w700,
+        ),
+        contentTextStyle: GoogleFonts.urbanist(
+          color: AppColors.primary,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(40),
+        ),
+      ),
+      dividerTheme: DividerThemeData(
+        color: Colors.grey.shade200,
+        space: .6,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 15,
+          horizontal: 18,
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          gapPadding: 12,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        fillColor: const Color(0xFF1F222A),
+        filled: true,
+        iconColor: const Color(0xFF9E9E9E),
+        hintStyle: GoogleFonts.urbanist(
+          color: const Color(0xFF9E9E9E),
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
         ),
       ),
       textTheme: darkTextTheme,

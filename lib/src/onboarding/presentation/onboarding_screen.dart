@@ -1,8 +1,6 @@
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../core/infrastructure/common_import.dart';
-import '../../core/shared/themes/app_colors.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -94,7 +92,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 48),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.go('/sign_up');
+                      },
                       child: const Text('Get Started'),
                     ),
                   )
