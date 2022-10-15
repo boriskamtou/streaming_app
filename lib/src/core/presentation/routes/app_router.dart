@@ -4,11 +4,17 @@ import 'package:movie_app/src/auth/sign_up/presentation/sign_up_with_password_sc
 import 'package:movie_app/src/core/infrastructure/common_import.dart';
 import 'package:movie_app/src/movie/presentation/home_screen.dart';
 import 'package:movie_app/src/onboarding/presentation/onboarding_screen.dart';
+import 'package:movie_app/src/setup_account/presentation/choose_your_interest.dart';
 import 'package:movie_app/src/splash/presentation/splash_screen.dart';
 
+import '../../application/app_router_notifier.dart';
+
 class AppRouter {
-  static final router = GoRouter(
+  final AppRouteNotifier _notifier;
+  late final router = GoRouter(
     initialLocation: '/onboarding',
+    refreshListenable: _notifier,
+    debugLogDiagnostics: true,
     routes: [
       GoRoute(
         path: '/',
@@ -35,14 +41,22 @@ class AppRouter {
         name: 'sign_up_with_password_screen',
         builder: (_, state) => const SignUpWithPasswordScreen(),
       ),
+      GoRoute(
+        path: '/choose-your-interest',
+        name: 'choose_your_interest',
+        builder: (_, state) => const ChooseYourInterest(),
+      ),
     ],
-    redirect: (context, state) {
-      return null;
-    },
-    errorBuilder: (_, state) => Scaffold(
-      body: Center(
-        child: Text(state.error.toString()),
+    redirect: _notifier.redirect,
+    errorPageBuilder: (_, state) => MaterialPage(
+      key: state.pageKey,
+      child: Scaffold(
+        body: Center(
+          child: Text(state.error.toString()),
+        ),
       ),
     ),
   );
+
+  AppRouter(this._notifier);
 }

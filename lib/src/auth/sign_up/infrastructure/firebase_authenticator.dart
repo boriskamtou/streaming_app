@@ -3,11 +3,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movie_app/src/auth/sign_up/domain/auth_failure.dart';
+import 'package:movie_app/src/core/infrastructure/local_storage/shared_prefs_storage.dart';
+import 'package:movie_app/src/core/shared/constants/storage_constants.dart';
 
-class SignUpAuthenticator {
+import 'credentials_storage/secure_credentials_storage.dart';
+
+class FirebaseAuthenticator {
   final FirebaseAuth _auth;
+  final SecureCredentialsStorage _credentialsStorage;
+  final SharedPrefsStorage _prefsStorage;
 
-  SignUpAuthenticator(this._auth);
+  FirebaseAuthenticator(
+      this._auth, this._credentialsStorage, this._prefsStorage);
+
+  bool _isRememberMeChecked = false;
 
   Future<Either<AuthFailure, UserCredential>> signUpWithEmailAndPassword(
       String email, String password) async {
@@ -18,6 +27,16 @@ class SignUpAuthenticator {
         email: email,
         password: password,
       );
+      if (userCredentials.user != null) {
+        _credentialsStorage.saveCredentials(
+            StorageConstants.userEmail, userCredentials.user?.email);
+        _credentialsStorage.saveCredentials(
+            StorageConstants.userName, userCredentials.user?.displayName);
+        _credentialsStorage.saveCredentials(
+            StorageConstants.userPhotoUrl, userCredentials.user?.photoURL);
+        _credentialsStorage.saveCredentials(StorageConstants.userPhoneNumber,
+            userCredentials.user?.phoneNumber);
+      }
       return right(userCredentials);
     } on PlatformException catch (e) {
       String message = 'An error occured. Please check your credentials.';
@@ -40,6 +59,10 @@ class SignUpAuthenticator {
         return left(
           const AuthFailure.failure('The email address is not valid.'),
         );
+      } else if (e.code == 'network-request-failed') {
+        return left(
+          const AuthFailure.failure('You do not have internet connexion'),
+        );
       } else {
         return left(
           AuthFailure.failure('Failed with error code: ${e.code}'),
@@ -59,8 +82,18 @@ class SignUpAuthenticator {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      return right(
-          await FirebaseAuth.instance.signInWithCredential(credential));
+
+      final userCredentials =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      _credentialsStorage.saveCredentials(
+          StorageConstants.userEmail, userCredentials.user?.email);
+      _credentialsStorage.saveCredentials(
+          StorageConstants.userName, userCredentials.user?.displayName);
+      _credentialsStorage.saveCredentials(
+          StorageConstants.userPhotoUrl, userCredentials.user?.photoURL);
+      _credentialsStorage.saveCredentials(
+          StorageConstants.userPhoneNumber, userCredentials.user?.phoneNumber);
+      return right(userCredentials);
     } on PlatformException catch (e) {
       return left(
         AuthFailure.failure(e.message),
@@ -75,6 +108,10 @@ class SignUpAuthenticator {
           const AuthFailure.failure(
               'The account already exists for that email.'),
         );
+      } else if (e.code == 'network-request-failed') {
+        return left(
+          const AuthFailure.failure('You do not have internet connexion'),
+        );
       } else {
         return left(
           AuthFailure.failure('Failed with error code: ${e.code}'),
@@ -83,12 +120,29 @@ class SignUpAuthenticator {
     }
   }
 
+  Future<bool> isSigned() => _credentialsStorage
+      .getCredentials(StorageConstants.userEmail)
+      .then((email) => email != null);
+
   Future<Either<AuthFailure, Unit>> signOut() async {
     try {
       await _auth.signOut();
+      _credentialsStorage.clearCredentials();
       return right(unit);
     } on PlatformException catch (e) {
       return left(AuthFailure.failure(e.message));
     }
+  }
+
+  bool get getIsRememberMe => _isRememberMeChecked;
+
+  Future<void> getIsRememberMeStatus() async {
+    _isRememberMeChecked =
+        await _prefsStorage.getBool(StorageConstants.rememberMe) ?? false;
+  }
+
+  void toggleRememberMe() {
+    _isRememberMeChecked = !_isRememberMeChecked;
+    _prefsStorage.saveBool(StorageConstants.rememberMe, _isRememberMeChecked);
   }
 }

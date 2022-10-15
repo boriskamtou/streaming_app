@@ -1,5 +1,5 @@
-abstract class CredentialsStorage<T> {
-  Future<T?> getCredentials();
-  Future<void> saveCredentials(T credentials);
+abstract class CredentialsStorage {
+  Future<void> saveCredentials(String key, String? value);
+  Future<String?> getCredentials(String key);
   Future<void> clearCredentials();
 }

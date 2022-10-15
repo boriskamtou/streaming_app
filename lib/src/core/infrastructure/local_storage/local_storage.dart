@@ -8,9 +8,8 @@ class LocalStorage implements SharedPrefsStorage {
   final SharedPreferences _prefs;
 
   LocalStorage(this._prefs);
-
   @override
-  bool? getBool(String key) {
+  Future<bool?> getBool(String key) async {
     return _prefs.getBool(key);
   }
 
@@ -61,9 +60,9 @@ class LocalStorage implements SharedPrefsStorage {
   }
 
   @override
-  Future<bool> saveImage(String key, Uint8List image) async {
+  void saveImage(String key, Uint8List image) async {
     final base64Image = const Base64Encoder().convert(image);
-    return await _prefs.setString(key, base64Image);
+    await _prefs.setString(key, base64Image);
   }
 
   @override
@@ -73,7 +72,7 @@ class LocalStorage implements SharedPrefsStorage {
   }
 
   @override
-  void saveString(String key, String value) {
+  void saveString(String key, String value) async {
     _prefs.setString(key, value);
   }
 }

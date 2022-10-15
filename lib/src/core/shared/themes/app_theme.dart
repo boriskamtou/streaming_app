@@ -73,6 +73,7 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.white,
+      primaryColor: AppColors.primary,
       checkboxTheme: CheckboxThemeData(
         checkColor: MaterialStateColor.resolveWith(
           (states) => AppColors.white,
@@ -173,6 +174,22 @@ class AppTheme {
           gapPadding: 12,
           borderRadius: BorderRadius.circular(12),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          gapPadding: 12,
+          borderSide: const BorderSide(
+            width: 1,
+            color: AppColors.primary,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          gapPadding: 12,
+          borderSide: const BorderSide(
+            width: 1,
+            color: AppColors.primary,
+          ),
+        ),
         fillColor: const Color(0xFFFAFAFA),
         filled: true,
         iconColor: const Color(0xFF9E9E9E),
@@ -183,6 +200,8 @@ class AppTheme {
         ),
       ),
       textTheme: lightTextTheme,
+      colorScheme: ColorScheme.fromSwatch()
+          .copyWith(secondary: AppColors.primary, primary: AppColors.primary),
     );
   }
 
@@ -190,6 +209,7 @@ class AppTheme {
     return ThemeData(
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.scafoldBackgroundBlack,
+      primaryColor: AppColors.primary,
       checkboxTheme: CheckboxThemeData(
         checkColor: MaterialStateColor.resolveWith(
           (states) => AppColors.white,
