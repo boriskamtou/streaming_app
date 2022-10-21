@@ -2,6 +2,7 @@ import '../../infrastructure/common_import.dart';
 
 class CommonTextFormField extends StatelessWidget {
   final String hintText;
+  final String? intialValue;
   final TextEditingController controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -20,6 +21,7 @@ class CommonTextFormField extends StatelessWidget {
     required this.validator,
     this.hasFocus = false,
     this.focusNode,
+    this.intialValue,
   }) : super(key: key);
 
   @override
@@ -29,6 +31,7 @@ class CommonTextFormField extends StatelessWidget {
       focusNode: focusNode,
       obscureText: obscureText,
       validator: validator,
+      initialValue: intialValue,
       style: GoogleFonts.urbanist(
         color: AppColors.black,
         fontWeight: FontWeight.w600,

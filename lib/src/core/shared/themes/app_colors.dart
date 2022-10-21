@@ -4,12 +4,14 @@ class AppColors {
   static const primary = Color(0xFFE21221);
   static const scafoldBackgroundBlack = Color(0xFF181a20);
 
+  static const transparent = Colors.transparent;
+
   static const darkGrey = Color(0xFF424242);
   static const thinGrey = Color(0xFFE0E0E0);
   static const black = Color(0xFF212121);
   static const white = Colors.white;
   static const brown = Colors.brown;
-  static const grey = Colors.grey;
+  static const grey = Color(0xFF616161);
   static const hintDark = Color(0xFF1f222a);
 
   static const disable = Color(0xFFD8D8D8);

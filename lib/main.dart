@@ -16,7 +16,8 @@ class LoggerProvider extends ProviderObserver {
   ) {
     if (newValue is StateController<int>) {
       log.i(
-          '[${provider.name ?? provider.runtimeType}] value: ${newValue.state}');
+        '[${provider.name ?? provider.runtimeType}] value: ${newValue.state}',
+      );
     }
   }
 }

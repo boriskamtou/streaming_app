@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:movie_app/src/auth/sign_up/application/firebase_authenticator_notifier.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:movie_app/src/auth/sign_up/infrastructure/sign_up_validation.dart';
+import 'package:movie_app/src/core/shared/constants/storage_constants.dart';
 import '../../../core/infrastructure/common_import.dart';
 import '../../../core/shared/widgets/common_textformfield.dart';
 import '../shared/provider.dart';
@@ -25,18 +26,29 @@ class _SignUpWithPasswordScreenState
 
   bool _showPassword = false;
 
+  void initValue() async {
+    final _auth = ref.read(firebaseAuthenticatorNotifier.notifier);
+    final _localStorage = ref.read(secureCredentialsStorage);
+    if (_auth.getIsRememberMe) {
+      final _email =
+          await _localStorage.getCredentials(StorageConstants.userEmail);
+      if (_email != null) {
+        _emailController.text = _email;
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initValue();
+  }
+
   @override
   void dispose() {
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    /* _focusNode.addListener(() {
-      if (_focusNode.hasFocus) {
-        setState(() {
-          _hasFocus = true;
-        });
-      }
-    }); */
   }
 
   @override
@@ -159,7 +171,7 @@ class _SignUpWithPasswordScreenState
                                     value: _authNotifier.getIsRememberMe,
                                     onChanged: (v) {
                                       setState(() {
-                                        _authNotifier.toggleRemeberMe();
+                                        _authNotifier.toggleRemeberMe(v!);
                                       });
                                     },
                                   ),
@@ -175,6 +187,7 @@ class _SignUpWithPasswordScreenState
                             ElevatedButton(
                               onPressed: () async {
                                 // context.go('/sign_up_with_password');*
+                                FocusScope.of(context).unfocus();
                                 if (_formKey.currentState!.validate()) {
                                   final progress = ProgressHUD.of(ctx);
 

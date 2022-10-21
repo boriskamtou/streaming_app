@@ -13,10 +13,10 @@ class FirebaseAuthenticator {
   final SecureCredentialsStorage _credentialsStorage;
   final SharedPrefsStorage _prefsStorage;
 
+  bool _isRememberMe = false;
+
   FirebaseAuthenticator(
       this._auth, this._credentialsStorage, this._prefsStorage);
-
-  bool _isRememberMeChecked = false;
 
   Future<Either<AuthFailure, UserCredential>> signUpWithEmailAndPassword(
       String email, String password) async {
@@ -30,12 +30,6 @@ class FirebaseAuthenticator {
       if (userCredentials.user != null) {
         _credentialsStorage.saveCredentials(
             StorageConstants.userEmail, userCredentials.user?.email);
-        _credentialsStorage.saveCredentials(
-            StorageConstants.userName, userCredentials.user?.displayName);
-        _credentialsStorage.saveCredentials(
-            StorageConstants.userPhotoUrl, userCredentials.user?.photoURL);
-        _credentialsStorage.saveCredentials(StorageConstants.userPhoneNumber,
-            userCredentials.user?.phoneNumber);
       }
       return right(userCredentials);
     } on PlatformException catch (e) {
@@ -120,29 +114,35 @@ class FirebaseAuthenticator {
     }
   }
 
-  Future<bool> isSigned() => _credentialsStorage
-      .getCredentials(StorageConstants.userEmail)
-      .then((email) => email != null);
+  bool isSigned() {
+    if (_auth.currentUser != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   Future<Either<AuthFailure, Unit>> signOut() async {
     try {
       await _auth.signOut();
-      _credentialsStorage.clearCredentials();
+      /*  _credentialsStorage.clearCredentials(); */
       return right(unit);
     } on PlatformException catch (e) {
       return left(AuthFailure.failure(e.message));
     }
   }
 
-  bool get getIsRememberMe => _isRememberMeChecked;
+  bool get getIsRememberMe =>
+      _prefsStorage.getBool(StorageConstants.rememberMe) ?? false;
+  bool get getHasSeenOnboarding =>
+      _prefsStorage.getBool(StorageConstants.hasSeenOnboarding) ?? false;
 
-  Future<void> getIsRememberMeStatus() async {
-    _isRememberMeChecked =
-        await _prefsStorage.getBool(StorageConstants.rememberMe) ?? false;
+  void toggleRememberMe(bool value) {
+    _isRememberMe = value;
+    _prefsStorage.saveBool(StorageConstants.rememberMe, _isRememberMe);
   }
 
-  void toggleRememberMe() {
-    _isRememberMeChecked = !_isRememberMeChecked;
-    _prefsStorage.saveBool(StorageConstants.rememberMe, _isRememberMeChecked);
+  void toggleHasSeenOnboarding() {
+    _prefsStorage.saveBool(StorageConstants.hasSeenOnboarding, true);
   }
 }

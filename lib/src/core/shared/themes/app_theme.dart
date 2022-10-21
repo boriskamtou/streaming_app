@@ -9,6 +9,11 @@ class AppTheme {
       fontWeight: FontWeight.w500,
       fontSize: 14,
     ),
+    bodyText2: GoogleFonts.urbanist(
+      color: AppColors.grey,
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+    ),
     headline1: GoogleFonts.urbanist(
       color: AppColors.black,
       fontSize: 32,
@@ -31,13 +36,18 @@ class AppTheme {
     ),
     headline6: GoogleFonts.urbanist(
       color: AppColors.black,
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: FontWeight.w600,
     ),
   );
 
   static TextTheme darkTextTheme = TextTheme(
     bodyText1: GoogleFonts.urbanist(
+      color: AppColors.white,
+      fontWeight: FontWeight.w500,
+      fontSize: 14,
+    ),
+    bodyText2: GoogleFonts.urbanist(
       color: AppColors.white,
       fontWeight: FontWeight.w500,
       fontSize: 14,
@@ -64,7 +74,7 @@ class AppTheme {
     ),
     headline6: GoogleFonts.urbanist(
       color: AppColors.white,
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: FontWeight.w600,
     ),
   );
@@ -130,18 +140,29 @@ class AppTheme {
             borderRadius: BorderRadius.circular(16),
           ),
           padding: const EdgeInsets.symmetric(
-            vertical: 18,
-            horizontal: 20,
+            vertical: 15,
+            horizontal: 18,
           ),
           minimumSize: const Size.fromHeight(0),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
+          backgroundColor: AppColors.bgRed,
           foregroundColor: AppColors.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
+          textStyle: GoogleFonts.urbanist(
+            color: AppColors.white,
+            fontSize: 15.5,
+            fontWeight: FontWeight.w600,
+          ),
+          padding: const EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 18,
+          ),
+          minimumSize: const Size.fromHeight(0),
         ),
       ),
       dialogTheme: DialogTheme(
@@ -274,10 +295,21 @@ class AppTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: AppColors.primary,
+          backgroundColor: AppColors.darkThin,
+          foregroundColor: AppColors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),
+          textStyle: GoogleFonts.urbanist(
+            color: AppColors.white,
+            fontSize: 15.5,
+            fontWeight: FontWeight.w600,
+          ),
+          padding: const EdgeInsets.symmetric(
+            vertical: 15,
+            horizontal: 18,
+          ),
+          minimumSize: const Size.fromHeight(0),
         ),
       ),
       dialogTheme: DialogTheme(

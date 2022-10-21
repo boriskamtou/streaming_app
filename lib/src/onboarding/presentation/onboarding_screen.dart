@@ -1,4 +1,6 @@
-import 'package:go_router/go_router.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:movie_app/src/auth/sign_up/shared/provider.dart';
+import 'package:movie_app/src/core/presentation/routes/app_router.gr.dart';
 
 import '../../core/infrastructure/common_import.dart';
 
@@ -91,12 +93,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   const SizedBox(height: 25),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 48),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        context.go('/sign_up');
-                      },
-                      child: const Text('Get Started'),
-                    ),
+                    child: Consumer(builder: (context, ref, _) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          ref
+                              .read(firebaseAuthenticatorNotifier.notifier)
+                              .toggleHasSeenOnboarding();
+                          AutoRouter.of(context).pushAndPopUntil(
+                              const SignUpRoute(),
+                              predicate: (route) => false);
+                        },
+                        child: const Text('Get Started'),
+                      );
+                    }),
                   )
                 ],
               ),

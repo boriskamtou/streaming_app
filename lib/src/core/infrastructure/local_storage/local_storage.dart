@@ -9,7 +9,7 @@ class LocalStorage implements SharedPrefsStorage {
 
   LocalStorage(this._prefs);
   @override
-  Future<bool?> getBool(String key) async {
+  bool? getBool(String key) {
     return _prefs.getBool(key);
   }
 
@@ -21,7 +21,7 @@ class LocalStorage implements SharedPrefsStorage {
   }
 
   @override
-  Future<Map<String, dynamic>?> getObject(String key) async {
+  Map<String, dynamic>? getObject(String key) {
     final objectString = _prefs.getString(key);
     if (objectString != null) {
       return const JsonDecoder().convert(objectString) as Map<String, dynamic>;
@@ -30,7 +30,7 @@ class LocalStorage implements SharedPrefsStorage {
   }
 
   @override
-  Future<String?> getString(String key) async {
+  String? getString(String key) {
     return _prefs.getString(key);
   }
 

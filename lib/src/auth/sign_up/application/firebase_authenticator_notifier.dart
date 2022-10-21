@@ -48,23 +48,25 @@ class FirebaseAuthenticatorNotifier extends StateNotifier<AuthState> {
     );
   }
 
-  Future<bool> isSigned() async {
-    final value = await _signUpAuthenticator.isSigned();
+  bool isSigned() {
+    final value = _signUpAuthenticator.isSigned();
     return value;
   }
 
-  Future<void> checkAuthStatus() async {
-    state = await (_signUpAuthenticator.isSigned())
+  void checkAuthStatus() {
+    state = (_signUpAuthenticator.isSigned())
         ? const AuthState.authenticated()
         : const AuthState.unauthenticated();
   }
 
-  Future<void> getIsRememberMeStatus() =>
-      _signUpAuthenticator.getIsRememberMeStatus();
-
   bool get getIsRememberMe => _signUpAuthenticator.getIsRememberMe;
+  bool get hasSeenOnboarding => _signUpAuthenticator.getHasSeenOnboarding;
 
-  void toggleRemeberMe() {
-    _signUpAuthenticator.toggleRememberMe();
+  void toggleRemeberMe(bool value) {
+    _signUpAuthenticator.toggleRememberMe(value);
+  }
+
+  void toggleHasSeenOnboarding() {
+    _signUpAuthenticator.toggleHasSeenOnboarding();
   }
 }

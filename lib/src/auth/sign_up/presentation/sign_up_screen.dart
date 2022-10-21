@@ -1,4 +1,5 @@
-import 'package:go_router/go_router.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:movie_app/src/core/presentation/routes/app_router.gr.dart';
 
 import '../../../core/infrastructure/common_import.dart';
 
@@ -82,7 +83,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                         const SizedBox(height: 24),
                         ElevatedButton(
                           onPressed: () {
-                            context.go('/sign_up_with_password');
+                            AutoRouter.of(context)
+                                .push(const SignUpWithPasswordRoute());
                           },
                           child: const Text('Continue with Password'),
                         ),
