@@ -3,22 +3,22 @@ import '../../infrastructure/common_import.dart';
 class CommonTextFormField extends StatelessWidget {
   final String hintText;
   final String? intialValue;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool obscureText;
   final bool hasFocus;
   final FocusNode? focusNode;
-  final String? Function(String?) validator;
+  final String? Function(String?)? validator;
 
   const CommonTextFormField({
     Key? key,
     required this.hintText,
-    required this.controller,
+    this.controller,
     this.prefixIcon,
     this.suffixIcon,
     this.obscureText = false,
-    required this.validator,
+    this.validator,
     this.hasFocus = false,
     this.focusNode,
     this.intialValue,
@@ -42,8 +42,6 @@ class CommonTextFormField extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,
-        filled: hasFocus ? true : false,
-        fillColor: hasFocus ? const Color.fromRGBO(226, 18, 33, 0.08) : null,
       ),
     );
   }

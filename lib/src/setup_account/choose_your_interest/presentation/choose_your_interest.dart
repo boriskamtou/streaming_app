@@ -1,6 +1,9 @@
 import 'package:movie_app/src/auth/sign_up/shared/provider.dart';
 import 'package:movie_app/src/core/infrastructure/common_import.dart';
+import 'package:movie_app/src/core/presentation/routes/app_router.gr.dart';
 import 'package:movie_app/src/setup_account/choose_your_interest/shared/providers.dart';
+
+import '../../core/shared/widgets/skip_or_continue_buttons.dart';
 
 class ChooseYourInterestScreen extends StatefulHookConsumerWidget {
   const ChooseYourInterestScreen({super.key});
@@ -94,22 +97,11 @@ class _ChooseYourInterestScreenState
                     .toList(),
               ),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text('Skip'),
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('Continue'),
-                    ),
-                  )
-                ],
+              SkipOrContinueButtons(
+                onSkipPressed: () {
+                  AutoRouter.of(context).push(const FillProfileRoute());
+                },
+                onContinuePressed: () {},
               )
             ],
           ),

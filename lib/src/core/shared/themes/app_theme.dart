@@ -200,7 +200,7 @@ class AppTheme {
           gapPadding: 12,
           borderSide: const BorderSide(
             width: 1,
-            color: AppColors.primary,
+            color: AppColors.transparent,
           ),
         ),
         errorBorder: OutlineInputBorder(

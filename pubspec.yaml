@@ -39,6 +39,7 @@ dependencies:
   flutter_progress_hud: ^2.0.2
   another_flushbar: ^1.12.29
   auto_route: ^5.0.2
+  flutter_hooks: ^0.18.5+1
 
 dev_dependencies:
   flutter_test:
