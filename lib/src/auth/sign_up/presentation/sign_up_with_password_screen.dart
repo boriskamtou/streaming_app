@@ -1,7 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:movie_app/src/auth/sign_up/application/firebase_authenticator_notifier.dart';
 import 'package:flutter_progress_hud/flutter_progress_hud.dart';
-import 'package:movie_app/src/auth/sign_up/infrastructure/sign_up_validation.dart';
+import 'package:movie_app/src/core/infrastructure/validation_service.dart';
 import 'package:movie_app/src/core/shared/constants/storage_constants.dart';
 import '../../../core/infrastructure/common_import.dart';
 import '../../../core/shared/widgets/common_textformfield.dart';
@@ -140,14 +140,14 @@ class _SignUpWithPasswordScreenState
                               focusNode: _focusNode,
                               prefixIcon:
                                   Image.asset('assets/icons/message.png'),
-                              validator: SignUpValidation.validateEmail,
+                              validator: ValidationService.validateEmail,
                               hintText: 'Email',
                             ),
                             const SizedBox(height: 20),
                             CommonTextFormField(
                               controller: _passwordController,
                               hasFocus: _hasFocus,
-                              validator: SignUpValidation.validatePassword,
+                              validator: ValidationService.validatePassword,
                               obscureText: _showPassword,
                               prefixIcon: Image.asset('assets/icons/lock.png'),
                               suffixIcon: InkWell(

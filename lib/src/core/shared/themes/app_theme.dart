@@ -211,6 +211,11 @@ class AppTheme {
             color: AppColors.primary,
           ),
         ),
+        errorStyle: GoogleFonts.urbanist(
+          fontWeight: FontWeight.w600,
+          letterSpacing: .2,
+          fontSize: 12,
+        ),
         fillColor: const Color(0xFFFAFAFA),
         filled: true,
         iconColor: const Color(0xFF9E9E9E),
@@ -341,6 +346,11 @@ class AppTheme {
           borderSide: BorderSide.none,
           gapPadding: 12,
           borderRadius: BorderRadius.circular(12),
+        ),
+        errorStyle: GoogleFonts.urbanist(
+          fontWeight: FontWeight.w600,
+          letterSpacing: .2,
+          fontSize: 12,
         ),
         fillColor: const Color(0xFF1F222A),
         filled: true,

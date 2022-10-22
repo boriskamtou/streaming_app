@@ -10,6 +10,7 @@ class CommonTextFormField extends StatelessWidget {
   final bool hasFocus;
   final FocusNode? focusNode;
   final String? Function(String?)? validator;
+  final TextInputType? textInputType;
 
   const CommonTextFormField({
     Key? key,
@@ -22,6 +23,7 @@ class CommonTextFormField extends StatelessWidget {
     this.hasFocus = false,
     this.focusNode,
     this.intialValue,
+    this.textInputType,
   }) : super(key: key);
 
   @override
@@ -32,6 +34,7 @@ class CommonTextFormField extends StatelessWidget {
       obscureText: obscureText,
       validator: validator,
       initialValue: intialValue,
+      keyboardType: textInputType,
       style: GoogleFonts.urbanist(
         color: AppColors.black,
         fontWeight: FontWeight.w600,

@@ -11,8 +11,8 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i8;
-import 'package:flutter/material.dart' as _i9;
+import 'package:auto_route/auto_route.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
 
 import '../../../auth/sign_up/presentation/sign_up_screen.dart' as _i2;
 import '../../../auth/sign_up/presentation/sign_up_with_password_screen.dart'
@@ -21,96 +21,108 @@ import '../../../movie/presentation/home_screen.dart' as _i4;
 import '../../../onboarding/presentation/onboarding_screen.dart' as _i5;
 import '../../../setup_account/choose_your_interest/presentation/choose_your_interest.dart'
     as _i6;
+import '../../../setup_account/create_pin/presentation/create_pin_screen.dart'
+    as _i8;
 import '../../../setup_account/fill_your_profile/presentation/fill_profile_screen.dart'
     as _i7;
 import '../../../splash/presentation/splash_screen.dart' as _i1;
 
-class AppRouter extends _i8.RootStackRouter {
-  AppRouter([_i9.GlobalKey<_i9.NavigatorState>? navigatorKey])
+class AppRouter extends _i9.RootStackRouter {
+  AppRouter([_i10.GlobalKey<_i10.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i8.PageFactory> pagesMap = {
+  final Map<String, _i9.PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.SplashScreen(),
       );
     },
     SignUpRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.SignUpScreen(),
       );
     },
     SignUpWithPasswordRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.SignUpWithPasswordScreen(),
       );
     },
     HomeRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i4.HomeScreen(),
       );
     },
     OnboardingRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.OnboardingScreen(),
       );
     },
     ChooseYourInterestRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i6.ChooseYourInterestScreen(),
       );
     },
     FillProfileRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
+      return _i9.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i7.FillProfileScreen(),
+      );
+    },
+    CreatePinRoute.name: (routeData) {
+      return _i9.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i8.CreatePinScreen(),
       );
     },
   };
 
   @override
-  List<_i8.RouteConfig> get routes => [
-        _i8.RouteConfig(
+  List<_i9.RouteConfig> get routes => [
+        _i9.RouteConfig(
           SplashRoute.name,
           path: '/',
         ),
-        _i8.RouteConfig(
+        _i9.RouteConfig(
           SignUpRoute.name,
           path: '/sign-up',
         ),
-        _i8.RouteConfig(
+        _i9.RouteConfig(
           SignUpWithPasswordRoute.name,
           path: '/sign-up-with-password',
         ),
-        _i8.RouteConfig(
+        _i9.RouteConfig(
           HomeRoute.name,
           path: '/home',
         ),
-        _i8.RouteConfig(
+        _i9.RouteConfig(
           OnboardingRoute.name,
           path: '/onboarding',
         ),
-        _i8.RouteConfig(
+        _i9.RouteConfig(
           ChooseYourInterestRoute.name,
           path: '/choose-your-interest',
         ),
-        _i8.RouteConfig(
+        _i9.RouteConfig(
           FillProfileRoute.name,
           path: '/fill-profile',
+        ),
+        _i9.RouteConfig(
+          CreatePinRoute.name,
+          path: '/create-pin',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.SplashScreen]
-class SplashRoute extends _i8.PageRouteInfo<void> {
+class SplashRoute extends _i9.PageRouteInfo<void> {
   const SplashRoute()
       : super(
           SplashRoute.name,
@@ -122,7 +134,7 @@ class SplashRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.SignUpScreen]
-class SignUpRoute extends _i8.PageRouteInfo<void> {
+class SignUpRoute extends _i9.PageRouteInfo<void> {
   const SignUpRoute()
       : super(
           SignUpRoute.name,
@@ -134,7 +146,7 @@ class SignUpRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.SignUpWithPasswordScreen]
-class SignUpWithPasswordRoute extends _i8.PageRouteInfo<void> {
+class SignUpWithPasswordRoute extends _i9.PageRouteInfo<void> {
   const SignUpWithPasswordRoute()
       : super(
           SignUpWithPasswordRoute.name,
@@ -146,7 +158,7 @@ class SignUpWithPasswordRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.HomeScreen]
-class HomeRoute extends _i8.PageRouteInfo<void> {
+class HomeRoute extends _i9.PageRouteInfo<void> {
   const HomeRoute()
       : super(
           HomeRoute.name,
@@ -158,7 +170,7 @@ class HomeRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.OnboardingScreen]
-class OnboardingRoute extends _i8.PageRouteInfo<void> {
+class OnboardingRoute extends _i9.PageRouteInfo<void> {
   const OnboardingRoute()
       : super(
           OnboardingRoute.name,
@@ -170,7 +182,7 @@ class OnboardingRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.ChooseYourInterestScreen]
-class ChooseYourInterestRoute extends _i8.PageRouteInfo<void> {
+class ChooseYourInterestRoute extends _i9.PageRouteInfo<void> {
   const ChooseYourInterestRoute()
       : super(
           ChooseYourInterestRoute.name,
@@ -182,7 +194,7 @@ class ChooseYourInterestRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i7.FillProfileScreen]
-class FillProfileRoute extends _i8.PageRouteInfo<void> {
+class FillProfileRoute extends _i9.PageRouteInfo<void> {
   const FillProfileRoute()
       : super(
           FillProfileRoute.name,
@@ -190,4 +202,16 @@ class FillProfileRoute extends _i8.PageRouteInfo<void> {
         );
 
   static const String name = 'FillProfileRoute';
+}
+
+/// generated route for
+/// [_i8.CreatePinScreen]
+class CreatePinRoute extends _i9.PageRouteInfo<void> {
+  const CreatePinRoute()
+      : super(
+          CreatePinRoute.name,
+          path: '/create-pin',
+        );
+
+  static const String name = 'CreatePinRoute';
 }
