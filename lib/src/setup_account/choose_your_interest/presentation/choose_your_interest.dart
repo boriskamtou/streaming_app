@@ -94,7 +94,10 @@ class _ChooseYourInterestScreenState
                         ),
                       ),
                     )
-                    .toList(),
+                    .toList()
+                    .animate(interval: 250.ms)
+                    .fade(duration: 200.ms)
+                    .scale(duration: 200.ms),
               ),
               const SizedBox(height: 16),
               SkipOrContinueButtons(

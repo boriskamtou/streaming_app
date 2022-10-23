@@ -25,6 +25,7 @@ class AppColors {
   static const bgOrange = Color(0xFFFFF8ED);
   static const bgPink = Color(0xFFFFF5F5);
   static const bgYellow = Color(0xFFFFFEE0);
+  static const bgWhite = Color(0xFFFAFAFA);
 
   // Darh
   static const dark = Color(0xFF181A20);

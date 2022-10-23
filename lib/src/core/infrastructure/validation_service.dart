@@ -3,6 +3,9 @@ class ValidationService {
     if (value == null || value.isEmpty) {
       return 'Please provide your email';
     }
+    if (!RegExp('[^@ \t\r\n]+@[^@ \t\r\n]+.[^@ \t\r\n]+').hasMatch(value)) {
+      return 'Please provide a valid email';
+    }
     return null;
   }
 

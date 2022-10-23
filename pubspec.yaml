@@ -41,6 +41,8 @@ dependencies:
   auto_route: ^5.0.2
   flutter_hooks: ^0.18.5+1
   firebase_storage: ^10.3.11
+  pin_code_fields: ^7.4.0
+  local_auth: ^2.1.2
 
 dev_dependencies:
   flutter_test:
