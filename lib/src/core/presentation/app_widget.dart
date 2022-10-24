@@ -54,7 +54,7 @@ class AppWidget extends ConsumerWidget {
         );
       },
     );
-    final theme = AppTheme.lightTheme();
+    final theme = AppTheme.darkTheme();
     return MaterialApp.router(
       theme: theme,
       title: 'Mova',
