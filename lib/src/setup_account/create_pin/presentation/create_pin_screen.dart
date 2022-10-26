@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:movie_app/src/core/presentation/routes/app_router.gr.dart';
 import 'package:movie_app/src/setup_account/set_fingerprint/shared/providers.dart';
@@ -78,7 +79,41 @@ class _CreatePinScreenState extends ConsumerState<CreatePinScreen> {
                   if (fingerprint.hasBiometrics) {
                     AutoRouter.of(context).push(const SetFingerprintRoute());
                   } else {
-                    print("Doesnt have");
+                    showModal(
+                      context: context,
+                      configuration: const FadeScaleTransitionConfiguration(),
+                      builder: (ctx) => AlertDialog(
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Image.asset(
+                              'assets/images/image_dialog.png',
+                              width: 100,
+                              height: 100,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              child: Text(
+                                'Congratulations!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'Your account is ready to use. You will be redirected to the Home page in a few seconds..',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            const SizedBox(height: 16),
+                            const Center(child: CircularProgressIndicator()),
+                          ],
+                        ),
+                      ),
+                    );
                   }
                 },
                 onContinuePressed: () {},
