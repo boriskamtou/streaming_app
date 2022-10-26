@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:movie_app/src/core/presentation/routes/app_router.gr.dart';
 
 import '../../../core/infrastructure/common_import.dart';

@@ -5,4 +5,5 @@ class StorageConstants {
   static const userPhoneNumber = 'user_phone_number';
   static const rememberMe = 'remember_me';
   static const hasSeenOnboarding = 'has_seen_onboarding';
+  static const hasBiometrics = 'has_bimetrics';
 }

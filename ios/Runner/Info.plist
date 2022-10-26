@@ -49,5 +49,8 @@
 	<string>Mova need access to your camera to let you take an image</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Mova need access to your microphone</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Biometric authentication for accessing secrets</string>
+
 </dict>
 </plist>

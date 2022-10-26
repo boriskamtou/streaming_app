@@ -12,17 +12,36 @@ import '../../../setup_account/choose_your_interest/presentation/choose_your_int
 
 @MaterialAutoRouter(
   routes: [
-    MaterialRoute(page: SplashScreen, initial: true),
-    MaterialRoute(page: SignUpScreen, path: '/sign-up'),
     MaterialRoute(
-        page: SignUpWithPasswordScreen, path: '/sign-up-with-password'),
+      page: SplashScreen,
+      initial: true,
+    ),
+    MaterialRoute(
+      page: SignUpScreen,
+      path: '/sign-up',
+    ),
+    MaterialRoute(
+      page: SignUpWithPasswordScreen,
+      path: '/sign-up-with-password',
+    ),
     MaterialRoute(page: HomeScreen, path: '/home'),
     MaterialRoute(page: OnboardingScreen, path: '/onboarding'),
     MaterialRoute(
-        page: ChooseYourInterestScreen, path: '/choose-your-interest'),
-    MaterialRoute(page: FillProfileScreen, path: '/fill-profile'),
-    MaterialRoute(page: CreatePinScreen, path: '/create-pin'),
-    MaterialRoute(page: SetFingerprintScreen, path: '/set-fingerprint'),
+      page: ChooseYourInterestScreen,
+      path: '/choose-your-interest',
+    ),
+    MaterialRoute(
+      page: FillProfileScreen,
+      path: '/fill-profile',
+    ),
+    MaterialRoute(
+      page: CreatePinScreen,
+      path: '/create-pin',
+    ),
+    MaterialRoute(
+      page: SetFingerprintScreen,
+      path: '/set-fingerprint',
+    ),
   ],
   replaceInRouteName: 'Screen,Route',
 )

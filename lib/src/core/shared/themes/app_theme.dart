@@ -363,10 +363,10 @@ class AppTheme {
           fontWeight: FontWeight.w400,
         ),
       ),
-      colorScheme: ColorScheme.fromSwatch().copyWith(
+      /*    colorScheme: ColorScheme.fromSwatch().copyWith(
         secondary: AppColors.primary,
         primary: AppColors.primary,
-      ),
+      ), */
       textTheme: darkTextTheme,
     );
   }

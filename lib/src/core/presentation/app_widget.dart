@@ -5,6 +5,7 @@ import 'package:movie_app/src/auth/sign_up/shared/provider.dart';
 import 'package:movie_app/src/core/presentation/routes/app_router.gr.dart';
 import 'package:movie_app/src/core/shared/constants/storage_constants.dart';
 import 'package:movie_app/src/core/shared/themes/app_theme.dart';
+import 'package:movie_app/src/setup_account/set_fingerprint/shared/providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../auth/sign_up/application/firebase_authenticator_notifier.dart';
@@ -13,6 +14,9 @@ import '../shared/providers.dart';
 final intitializationProvider = FutureProvider<Unit>((ref) async {
   await SharedPreferences.getInstance();
   final _authNotifier = ref.watch(firebaseAuthenticatorNotifier.notifier);
+  final _fingerprintConfigurationProvider =
+      ref.watch(fingerprintConfigurationProvider);
+  print(_fingerprintConfigurationProvider.hasBiometrics);
   _authNotifier.checkAuthStatus();
   return unit;
 });
@@ -47,14 +51,16 @@ class AppWidget extends ConsumerWidget {
               _appRouter.pushAndPopUntil(const SignUpWithPasswordRoute(),
                   predicate: (route) => false);
             } else {
-              _appRouter.pushAndPopUntil(const OnboardingRoute(),
-                  predicate: (route) => false);
+              _appRouter.pushAndPopUntil(
+                const OnboardingRoute(),
+                predicate: (route) => false,
+              );
             }
           },
         );
       },
     );
-    final theme = AppTheme.darkTheme();
+    final theme = AppTheme.lightTheme();
     return MaterialApp.router(
       theme: theme,
       title: 'Mova',

@@ -93,180 +93,170 @@ class _SignUpWithPasswordScreenState
       );
     });
     return Scaffold(
+      appBar: AppBar(),
       body: ProgressHUD(
         barrierEnabled: true,
-        child: Builder(builder: (ctx) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 40, bottom: 20),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        splashRadius: 20,
-                        icon: Image.asset('assets/icons/arrow.png'),
-                      ),
-                    ],
-                  ),
-                ),
-                Image.asset(
-                  'assets/images/logo.png',
-                  width: 50,
-                  height: 50,
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  'Create your account',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline2,
-                ),
-                const SizedBox(height: 20),
-                Consumer(
-                  builder: (context, ref, _) {
-                    final _authNotifier =
-                        ref.watch(firebaseAuthenticatorNotifier.notifier);
-                    return Form(
-                      key: _formKey,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            CommonTextFormField(
-                              controller: _emailController,
-                              hasFocus: _hasFocus,
-                              focusNode: _focusNode,
-                              prefixIcon:
-                                  Image.asset('assets/icons/message.png'),
-                              validator: ValidationService.validateEmail,
-                              hintText: 'Email',
+        child: Builder(
+          builder: (ctx) {
+            return SingleChildScrollView(
+              child: Consumer(
+                builder: (context, ref, _) {
+                  final _authNotifier =
+                      ref.watch(firebaseAuthenticatorNotifier.notifier);
+                  return Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(
+                            'assets/images/logo.png',
+                            width: 50,
+                            height: 50,
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            'Create your account',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headline2,
+                          ),
+                          const SizedBox(height: 20),
+                          CommonTextFormField(
+                            controller: _emailController,
+                            hasFocus: _hasFocus,
+                            focusNode: _focusNode,
+                            prefixIcon: Image.asset('assets/icons/message.png'),
+                            validator: ValidationService.validateEmail,
+                            hintText: 'Email',
+                          ),
+                          const SizedBox(height: 20),
+                          CommonTextFormField(
+                            controller: _passwordController,
+                            hasFocus: _hasFocus,
+                            validator: ValidationService.validatePassword,
+                            obscureText: _showPassword,
+                            prefixIcon: Image.asset('assets/icons/lock.png'),
+                            suffixIcon: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _showPassword = !_showPassword;
+                                });
+                              },
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.asset('assets/icons/hide_close.png'),
                             ),
-                            const SizedBox(height: 20),
-                            CommonTextFormField(
-                              controller: _passwordController,
-                              hasFocus: _hasFocus,
-                              validator: ValidationService.validatePassword,
-                              obscureText: _showPassword,
-                              prefixIcon: Image.asset('assets/icons/lock.png'),
-                              suffixIcon: InkWell(
-                                onTap: () {
-                                  setState(() {
-                                    _showPassword = !_showPassword;
-                                  });
-                                },
-                                borderRadius: BorderRadius.circular(8),
-                                child:
-                                    Image.asset('assets/icons/hide_close.png'),
-                              ),
-                              hintText: 'Password',
+                            hintText: 'Password',
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Checkbox(
+                                  value: _authNotifier.getIsRememberMe,
+                                  onChanged: (v) {
+                                    setState(() {
+                                      _authNotifier.toggleRemeberMe(v!);
+                                    });
+                                  },
+                                ),
+                                const SizedBox(width: 2),
+                                Text(
+                                  'Remember me',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                )
+                              ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 4),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Checkbox(
-                                    value: _authNotifier.getIsRememberMe,
-                                    onChanged: (v) {
-                                      setState(() {
-                                        _authNotifier.toggleRemeberMe(v!);
-                                      });
-                                    },
-                                  ),
-                                  const SizedBox(width: 2),
-                                  Text(
-                                    'Remember me',
-                                    style:
-                                        Theme.of(context).textTheme.bodyText1,
-                                  )
-                                ],
-                              ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                // context.go('/sign_up_with_password');*
-                                FocusScope.of(context).unfocus();
-                                if (_formKey.currentState!.validate()) {
-                                  final progress = ProgressHUD.of(ctx);
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              // context.go('/sign_up_with_password');*
+                              FocusScope.of(context).unfocus();
+                              if (_formKey.currentState!.validate()) {
+                                final progress = ProgressHUD.of(ctx);
 
-                                  progress?.show();
+                                progress?.show();
+                                ref
+                                    .read(
+                                        firebaseAuthenticatorNotifier.notifier)
+                                    .signUpWithEmailAndPassword(
+                                      _emailController.text,
+                                      _passwordController.text,
+                                    )
+                                    .then((_) => progress?.dismiss());
+                              }
+                            },
+                            child: const Text('Sign up'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 24),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Text(
+                                    'Or continue with',
+                                    style:
+                                        Theme.of(context).textTheme.titleSmall,
+                                  ),
+                                ),
+                                const Divider(),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              _SocialIconSignUp(
+                                onTap: () {},
+                                imageUrl: 'assets/icons/facebook.png',
+                              ),
+                              _SocialIconSignUp(
+                                onTap: () {
                                   ref
                                       .read(firebaseAuthenticatorNotifier
                                           .notifier)
-                                      .signUpWithEmailAndPassword(
-                                        _emailController.text,
-                                        _passwordController.text,
-                                      )
-                                      .then((_) => progress?.dismiss());
-                                }
-                              },
-                              child: const Text('Sign up'),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 24),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Divider(),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15),
-                                    child: Text(
-                                      'Or continue with',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleSmall,
-                                    ),
-                                  ),
-                                  const Divider(),
-                                ],
+                                      .signUpWithGoogle();
+                                },
+                                imageUrl: 'assets/icons/google.png',
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                _SocialIconSignUp(
-                                  onTap: () {},
-                                  imageUrl: 'assets/icons/facebook.png',
+                              _SocialIconSignUp(
+                                onTap: () {},
+                                imageUrl: 'assets/icons/apple-dark.png',
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text('Already have an account?'),
+                              const SizedBox(width: 4),
+                              InkWell(
+                                onTap: () {},
+                                child: const Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.primary,
+                                  ),
                                 ),
-                                _SocialIconSignUp(
-                                  onTap: () {
-                                    ref
-                                        .read(firebaseAuthenticatorNotifier
-                                            .notifier)
-                                        .signUpWithGoogle();
-                                  },
-                                  imageUrl: 'assets/icons/google.png',
-                                ),
-                                _SocialIconSignUp(
-                                  onTap: () {},
-                                  imageUrl: 'assets/icons/apple-dark.png',
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 14),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text('Already have an account?'),
-                                TextButton(
-                                  onPressed: () {},
-                                  child: const Text('Sign In'),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                              )
+                            ],
+                          )
+                        ],
                       ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          );
-        }),
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
     );
   }

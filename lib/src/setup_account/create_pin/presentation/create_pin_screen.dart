@@ -1,5 +1,6 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:movie_app/src/core/presentation/routes/app_router.gr.dart';
+import 'package:movie_app/src/setup_account/set_fingerprint/shared/providers.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../core/infrastructure/common_import.dart';
@@ -18,6 +19,7 @@ class _CreatePinScreenState extends ConsumerState<CreatePinScreen> {
   @override
   Widget build(BuildContext context) {
     final _pinController = useTextEditingController();
+    final fingerprint = ref.watch(fingerprintConfigurationProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create New PIN'),
@@ -73,7 +75,11 @@ class _CreatePinScreenState extends ConsumerState<CreatePinScreen> {
               const Spacer(),
               SkipOrContinueButtons(
                 onSkipPressed: () {
-                  AutoRouter.of(context).push(const SetFingerprintRoute());
+                  if (fingerprint.hasBiometrics) {
+                    AutoRouter.of(context).push(const SetFingerprintRoute());
+                  } else {
+                    print("Doesnt have");
+                  }
                 },
                 onContinuePressed: () {},
               )

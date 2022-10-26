@@ -43,6 +43,8 @@ dependencies:
   firebase_storage: ^10.3.11
   pin_code_fields: ^7.4.0
   local_auth: ^2.1.2
+  # sign_in_with_apple: ^4.1.0
+  intl_phone_number_input: ^0.7.1
 
 dev_dependencies:
   flutter_test:
