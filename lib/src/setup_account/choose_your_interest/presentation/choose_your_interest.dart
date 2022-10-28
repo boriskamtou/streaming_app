@@ -1,4 +1,3 @@
-import 'package:movie_app/src/auth/sign_up/shared/provider.dart';
 import 'package:movie_app/src/core/infrastructure/common_import.dart';
 import 'package:movie_app/src/core/presentation/routes/app_router.gr.dart';
 import 'package:movie_app/src/setup_account/choose_your_interest/shared/providers.dart';
@@ -25,14 +24,14 @@ class _ChooseYourInterestScreenState
     return Scaffold(
       appBar: AppBar(
         title: const Text('Choose Your Interest'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              ref.read(firebaseAuthenticatorNotifier.notifier).signOut();
-            },
-            icon: const Icon(Icons.logout),
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     onPressed: () {
+        //       ref.read(firebaseAuthenticatorNotifier.notifier).signOut();
+        //     },
+        //     icon: const Icon(Icons.logout),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Padding(

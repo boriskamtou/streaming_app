@@ -1,6 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:movie_app/src/menu/home/presentation/home_tab.dart';
 
 import '../../../core/infrastructure/common_import.dart';
 
@@ -39,9 +40,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   ];
 
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-    ),
+    HomeTab(),
     Text(
       'Index 1: Explore',
     ),
@@ -60,12 +59,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
         itemCount: _iconOutlineList.length,
         splashSpeedInMilliseconds: 0,
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         tabBuilder: (int index, bool isActive) {
           final color = isActive ? AppColors.primary : AppColors.inactiveColor;
           return Column(
@@ -106,9 +104,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         ),
         elevation: 2,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_bottomNavIndex),
-      ),
+      body: _widgetOptions.elementAt(_bottomNavIndex),
     );
   }
 }

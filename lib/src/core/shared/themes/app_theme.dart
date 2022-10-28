@@ -84,6 +84,10 @@ class AppTheme {
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.white,
       primaryColor: AppColors.primary,
+      canvasColor: AppColors.white,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: AppColors.white,
+      ),
       checkboxTheme: CheckboxThemeData(
         checkColor: MaterialStateColor.resolveWith(
           (states) => AppColors.white,
@@ -99,9 +103,6 @@ class AppTheme {
         foregroundColor: AppColors.black,
         backgroundColor: AppColors.white,
         elevation: 0,
-      ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: AppColors.primary,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -238,6 +239,10 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.scafoldBackgroundBlack,
       primaryColor: AppColors.primary,
+      canvasColor: AppColors.black,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: AppColors.dark,
+      ),
       checkboxTheme: CheckboxThemeData(
         checkColor: MaterialStateColor.resolveWith(
           (states) => AppColors.white,
@@ -253,9 +258,6 @@ class AppTheme {
         foregroundColor: AppColors.white,
         backgroundColor: AppColors.hintDark,
         elevation: 0,
-      ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: AppColors.primary,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

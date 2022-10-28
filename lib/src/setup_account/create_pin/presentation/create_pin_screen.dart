@@ -1,5 +1,4 @@
 import 'package:animations/animations.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:movie_app/src/core/presentation/routes/app_router.gr.dart';
 import 'package:movie_app/src/setup_account/set_fingerprint/shared/providers.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -17,9 +16,21 @@ class CreatePinScreen extends StatefulHookConsumerWidget {
 
 class _CreatePinScreenState extends ConsumerState<CreatePinScreen> {
   final _formkey = GlobalKey<FormState>();
+  final _pinController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _pinController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final _pinController = useTextEditingController();
     final fingerprint = ref.watch(fingerprintConfigurationProvider);
     return Scaffold(
       appBar: AppBar(
