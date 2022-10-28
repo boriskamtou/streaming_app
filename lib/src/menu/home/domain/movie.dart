@@ -20,4 +20,6 @@ class Movie with _$Movie {
     required double voteAverage,
     required int voteCount,
   }) = _Movie;
+
+  String get fullImageUrl => 'https://image.tmdb.org/t/p/w200/$posterPath';
 }

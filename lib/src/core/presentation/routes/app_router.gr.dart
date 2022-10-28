@@ -17,7 +17,7 @@ import 'package:flutter/material.dart' as _i11;
 import '../../../auth/sign_up/presentation/sign_up_screen.dart' as _i2;
 import '../../../auth/sign_up/presentation/sign_up_with_password_screen.dart'
     as _i3;
-import '../../../movie/presentation/home_screen.dart' as _i4;
+import '../../../menu/core/presentation/home_screen.dart' as _i4;
 import '../../../onboarding/presentation/onboarding_screen.dart' as _i5;
 import '../../../setup_account/choose_your_interest/presentation/choose_your_interest.dart'
     as _i6;
@@ -128,6 +128,10 @@ class AppRouter extends _i10.RootStackRouter {
         _i10.RouteConfig(
           SetFingerprintRoute.name,
           path: '/set-fingerprint',
+        ),
+        _i10.RouteConfig(
+          HomeRoute.name,
+          path: '/home',
         ),
       ];
 }

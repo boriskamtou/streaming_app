@@ -16,7 +16,6 @@ final intitializationProvider = FutureProvider<Unit>((ref) async {
   final _authNotifier = ref.watch(firebaseAuthenticatorNotifier.notifier);
   final _fingerprintConfigurationProvider =
       ref.watch(fingerprintConfigurationProvider);
-  print(_fingerprintConfigurationProvider.hasBiometrics);
   _authNotifier.checkAuthStatus();
   return unit;
 });
@@ -60,7 +59,7 @@ class AppWidget extends ConsumerWidget {
         );
       },
     );
-    final theme = AppTheme.darkTheme();
+    final theme = AppTheme.lightTheme();
     return MaterialApp.router(
       theme: theme,
       title: 'Mova',

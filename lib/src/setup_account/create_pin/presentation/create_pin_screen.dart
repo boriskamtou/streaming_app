@@ -116,7 +116,12 @@ class _CreatePinScreenState extends ConsumerState<CreatePinScreen> {
                     );
                   }
                 },
-                onContinuePressed: () {},
+                onContinuePressed: () {
+                  context.router.pushAndPopUntil(
+                    const HomeRoute(),
+                    predicate: (route) => false,
+                  );
+                },
               )
             ],
           ),
