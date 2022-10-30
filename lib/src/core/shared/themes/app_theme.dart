@@ -239,7 +239,7 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.scafoldBackgroundBlack,
       primaryColor: AppColors.primary,
-      canvasColor: AppColors.black,
+      canvasColor: const Color(0xFF1F222A),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.dark,
       ),

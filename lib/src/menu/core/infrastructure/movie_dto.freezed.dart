@@ -272,7 +272,7 @@ class __$$_MovieDTOCopyWithImpl<$Res> extends _$MovieDTOCopyWithImpl<$Res>
 class _$_MovieDTO extends _MovieDTO {
   const _$_MovieDTO(
       {required this.id,
-      required this.adult = false,
+      this.adult = false,
       @JsonKey(name: 'backdrop_path') required this.backdropPath,
       @JsonKey(name: 'genre_ids') required final List<int> genreIds,
       @JsonKey(name: 'original_language') required this.originalLanguage,
@@ -282,7 +282,7 @@ class _$_MovieDTO extends _MovieDTO {
       @JsonKey(name: 'poster_path') required this.posterPath,
       @JsonKey(name: 'release_date') required this.releaseDate,
       required this.title,
-      required this.video = false,
+      this.video = false,
       @JsonKey(name: 'vote_average') required this.voteAverage,
       @JsonKey(name: 'vote_count') required this.voteCount})
       : _genreIds = genreIds,
@@ -403,7 +403,7 @@ class _$_MovieDTO extends _MovieDTO {
 abstract class _MovieDTO extends MovieDTO {
   const factory _MovieDTO(
       {required final int id,
-      required final bool adult,
+      final bool adult,
       @JsonKey(name: 'backdrop_path')
           required final String backdropPath,
       @JsonKey(name: 'genre_ids')
@@ -419,7 +419,7 @@ abstract class _MovieDTO extends MovieDTO {
       @JsonKey(name: 'release_date')
           required final String releaseDate,
       required final String title,
-      required final bool video,
+      final bool video,
       @JsonKey(name: 'vote_average')
           required final double voteAverage,
       @JsonKey(name: 'vote_count')

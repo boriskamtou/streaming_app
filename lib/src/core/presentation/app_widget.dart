@@ -37,7 +37,7 @@ class AppWidget extends ConsumerWidget {
         state.maybeMap(
           orElse: () {},
           authenticated: (_) {
-            _appRouter.pushAndPopUntil(const ChooseYourInterestRoute(),
+            _appRouter.pushAndPopUntil(const HomeRoute(),
                 predicate: (route) => false);
           },
           unauthenticated: (_) {
@@ -59,7 +59,7 @@ class AppWidget extends ConsumerWidget {
         );
       },
     );
-    final theme = AppTheme.darkTheme();
+    final theme = AppTheme.lightTheme();
     return MaterialApp.router(
       theme: theme,
       title: 'Mova',

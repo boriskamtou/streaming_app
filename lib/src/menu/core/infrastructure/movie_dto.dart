@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../domain/movie.dart';
+import 'movie.dart';
 
 part 'movie_dto.freezed.dart';
 part 'movie_dto.g.dart';
@@ -10,7 +10,7 @@ class MovieDTO with _$MovieDTO {
   const MovieDTO._();
   const factory MovieDTO({
     required int id,
-    @Default(false) required bool adult,
+    @Default(false) bool adult,
     @JsonKey(name: 'backdrop_path') required String backdropPath,
     @JsonKey(name: 'genre_ids') required List<int> genreIds,
     @JsonKey(name: 'original_language') required String originalLanguage,
@@ -20,7 +20,7 @@ class MovieDTO with _$MovieDTO {
     @JsonKey(name: 'poster_path') required String posterPath,
     @JsonKey(name: 'release_date') required String releaseDate,
     required String title,
-    @Default(false) required bool video,
+    @Default(false) bool video,
     @JsonKey(name: 'vote_average') required double voteAverage,
     @JsonKey(name: 'vote_count') required int voteCount,
   }) = _MovieDTO;

@@ -1,4 +1,12 @@
+import 'package:another_flushbar/flushbar.dart';
+import 'package:movie_app/src/menu/core/infrastructure/movie.dart';
+import 'package:movie_app/src/menu/home/application/popular_movies_notifier.dart';
+import 'package:movie_app/src/menu/home/shared/providers.dart';
+import 'package:shimmer/shimmer.dart';
+
 import '../../../core/infrastructure/common_import.dart';
+import 'widgets/play_and_add_to_my_list_buttons.dart';
+import 'widgets/row_title.dart';
 
 class HomeTab extends ConsumerStatefulWidget {
   const HomeTab({super.key});
@@ -9,7 +17,50 @@ class HomeTab extends ConsumerStatefulWidget {
 
 class _HomeTabState extends ConsumerState<HomeTab> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final _popularMovies = ref.watch(popularMoviesNotifier);
+    ref.listen<PopularMoviesState>(
+      popularMoviesNotifier,
+      (previous, next) {
+        next.maybeWhen(
+          orElse: () {},
+          loading: () {},
+          success: (_) {
+            Flushbar(
+              message: 'Success',
+              icon: const Icon(
+                Icons.info,
+                color: AppColors.alertSuccess,
+              ),
+              borderRadius: BorderRadius.circular(10),
+              backgroundColor: AppColors.bgGreen,
+              messageColor: AppColors.alertSuccess,
+              margin: const EdgeInsets.all(16),
+              duration: const Duration(seconds: 2),
+            ).show(context);
+          },
+          // failure: (error) {
+          //   Flushbar(
+          //     message: error ?? 'Hello',
+          //     icon: const Icon(
+          //       Icons.info,
+          //       color: AppColors.alertError,
+          //     ),
+          //     borderRadius: BorderRadius.circular(10),
+          //     backgroundColor: AppColors.bgRed,
+          //     messageColor: AppColors.alertError,
+          //     duration: const Duration(seconds: 2),
+          //     margin: const EdgeInsets.all(16),
+          //   ).show(context);
+          // },
+        );
+      },
+    );
     return SingleChildScrollView(
       primary: true,
       child: Column(
@@ -106,14 +157,14 @@ class _HomeTabState extends ConsumerState<HomeTab> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const _PlayAndAddToMyListButtons()
+                    const PlayAndAddToMyListButtons()
                   ],
                 ),
               )
             ],
           ),
           const SizedBox(height: 18),
-          _RowTitle(
+          RowTitle(
             title: 'Top 10 Popular Movies',
             onSeeAllTap: () {},
           ),
@@ -121,16 +172,48 @@ class _HomeTabState extends ConsumerState<HomeTab> {
           SizedBox(
             height: 180,
             width: double.infinity,
-            child: ListView.builder(
-              itemCount: 10,
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (ctx, i) => const _MovieItem(),
+            child: _popularMovies.maybeMap(
+              orElse: () {
+                return null;
+              },
+              intial: (_) {
+                return const Center(
+                  child: Text('Loading data...'),
+                );
+              },
+              loading: (_) {
+                return SizedBox(
+                  height: 180,
+                  width: double.infinity,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (ctx, i) => const LoadingMovie(),
+                  ),
+                );
+              },
+              failure: (_) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Center(
+                    child: Text(
+                      _.message != null ? _.message! : 'Error',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              },
+              success: (data) {
+                return _ListOfPopularMovies(
+                  movies: data.movies,
+                );
+              },
             ),
           ),
           const SizedBox(height: 18),
-          _RowTitle(
+          RowTitle(
             title: 'Top 10 Rated Movies',
             onSeeAllTap: () {},
           ),
@@ -143,11 +226,15 @@ class _HomeTabState extends ConsumerState<HomeTab> {
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
-              itemBuilder: (ctx, i) => const _MovieItem(),
+              itemBuilder: (ctx, i) => const _MovieItem(
+                imageUrl:
+                    'https://media.comicbook.com/2017/10/iron-man-movie-poster-marvel-cinematic-universe-1038878.jpg',
+                voteAverage: 7.2,
+              ),
             ),
           ),
           const SizedBox(height: 18),
-          _RowTitle(
+          RowTitle(
             title: 'Trending Movies',
             onSeeAllTap: () {},
           ),
@@ -160,7 +247,11 @@ class _HomeTabState extends ConsumerState<HomeTab> {
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
-              itemBuilder: (ctx, i) => const _MovieItem(),
+              itemBuilder: (ctx, i) => const _MovieItem(
+                imageUrl:
+                    'https://media.comicbook.com/2017/10/iron-man-movie-poster-marvel-cinematic-universe-1038878.jpg',
+                voteAverage: 7.2,
+              ),
             ),
           ),
         ],
@@ -169,83 +260,35 @@ class _HomeTabState extends ConsumerState<HomeTab> {
   }
 }
 
-class _PlayAndAddToMyListButtons extends StatelessWidget {
-  const _PlayAndAddToMyListButtons({
+class _ListOfPopularMovies extends StatelessWidget {
+  final List<Movie> movies;
+  const _ListOfPopularMovies({
     Key? key,
+    required this.movies,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 8,
-          ),
-          decoration: BoxDecoration(
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Row(
-            children: [
-              const Icon(
-                Icons.play_circle,
-                color: AppColors.white,
-                size: 13,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                'Play',
-                style: GoogleFonts.urbanist(
-                  color: AppColors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(width: 6),
-        Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-            vertical: 6,
-          ),
-          decoration: BoxDecoration(
-              color: AppColors.transparent,
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(
-                width: 2,
-                color: AppColors.white,
-              )),
-          child: Row(
-            children: [
-              const Icon(
-                Icons.add,
-                color: AppColors.white,
-                size: 13,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                'My List',
-                style: GoogleFonts.urbanist(
-                  color: AppColors.white,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
+    return ListView.builder(
+      itemCount: movies.length,
+      shrinkWrap: true,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (ctx, i) => _MovieItem(
+        imageUrl: movies[i].fullImageUrl,
+        voteAverage: movies[i].voteAverage,
+      ),
     );
   }
 }
 
 class _MovieItem extends StatelessWidget {
+  final String imageUrl;
+  final double voteAverage;
   const _MovieItem({
     Key? key,
+    required this.imageUrl,
+    required this.voteAverage,
   }) : super(key: key);
 
   @override
@@ -256,9 +299,7 @@ class _MovieItem extends StatelessWidget {
           margin: const EdgeInsets.only(right: 8),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
-              'assets/images/movie_image.png',
-            ),
+            child: Image.network(imageUrl),
           ),
         ),
         Positioned(
@@ -272,11 +313,11 @@ class _MovieItem extends StatelessWidget {
               color: AppColors.primary,
               borderRadius: BorderRadius.circular(6),
             ),
-            child: const Center(
+            child: Center(
               child: Text(
-                '9.5',
+                voteAverage.toString(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: AppColors.white,
                   fontSize: 10,
                 ),
@@ -289,37 +330,38 @@ class _MovieItem extends StatelessWidget {
   }
 }
 
-class _RowTitle extends StatelessWidget {
-  final String title;
-  final void Function() onSeeAllTap;
-  const _RowTitle({
-    Key? key,
-    required this.title,
-    required this.onSeeAllTap,
-  }) : super(key: key);
+class LoadingMovie extends StatelessWidget {
+  const LoadingMovie({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade200,
+      highlightColor: Colors.grey.shade300.withOpacity(.5),
+      child: Stack(
         children: [
-          Text(
-            title,
-            style: Theme.of(context).textTheme.headline3,
+          Container(
+            height: 180,
+            width: 100,
+            margin: const EdgeInsets.only(right: 8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.grey.shade200,
+            ),
           ),
-          InkWell(
-            onTap: onSeeAllTap,
-            child: const Text(
-              'See all',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 13,
-                color: AppColors.primary,
+          Positioned(
+            left: 10,
+            top: 10,
+            child: Container(
+              height: 20,
+              width: 30,
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              decoration: BoxDecoration(
+                color: Colors.grey,
+                borderRadius: BorderRadius.circular(6),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

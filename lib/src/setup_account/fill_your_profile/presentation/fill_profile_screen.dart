@@ -116,13 +116,13 @@ class _FillProfileScreenState extends ConsumerState<FillProfileScreen> {
                         horizontal: 18,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFFAFAFA),
+                        color: Theme.of(context).canvasColor,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: DropdownButton(
                         value: _genderValue,
                         borderRadius: BorderRadius.circular(12),
-                        dropdownColor: const Color(0xFFFAFAFA),
+                        dropdownColor: Theme.of(context).canvasColor,
                         isExpanded: true,
                         hint: Text(
                           'Gender',
@@ -137,7 +137,10 @@ class _FillProfileScreenState extends ConsumerState<FillProfileScreen> {
                             child: Text(
                               items,
                               style: GoogleFonts.urbanist(
-                                color: AppColors.black,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    ?.color,
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: .2,
                                 fontSize: 14,

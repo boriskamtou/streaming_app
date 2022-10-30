@@ -92,12 +92,19 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text('Already have an account?'),
-                            TextButton(
-                              onPressed: () {},
-                              child: const Text('Sign In'),
+                            const SizedBox(width: 4),
+                            InkWell(
+                              onTap: () {},
+                              child: const Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.primary,
+                                ),
+                              ),
                             )
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),

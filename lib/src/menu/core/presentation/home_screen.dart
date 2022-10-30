@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:movie_app/src/menu/home/presentation/home_tab.dart';
 
 import '../../../core/infrastructure/common_import.dart';
+import '../../home/shared/providers.dart';
 
 class HomeScreen extends StatefulHookConsumerWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -54,6 +55,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       'Index 4: Profile',
     ),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(
+      () => ref.read(popularMoviesNotifier.notifier).getPopularMovies(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
